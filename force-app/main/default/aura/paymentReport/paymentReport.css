@@ -1,0 +1,8 @@
+.THIS {
+    background-color: white;
+}
+
+
+.THIS .search-data__input input {
+    width: 300px;
+}

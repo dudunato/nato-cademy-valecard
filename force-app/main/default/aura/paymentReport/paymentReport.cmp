@@ -1,0 +1,53 @@
+<aura:component
+    description="Payment Report"
+    implements="force:appHostable,flexipage:availableForAllPageTypes"
+    access="global"
+>
+    <aura:attribute name="isLoading" type="Boolean" default="false" />
+    <aura:attribute name="searchTerm" type="String" default="" />
+    <aura:attribute name="reportData" type="List" default="[]" />
+    <aura:attribute name="columns" type="List" default="[]" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.go}" />
+
+    <lightning:layout multipleRows="true">
+        <lightning:layoutItem size="12">
+            <div class="slds-page-header" role="banner">
+                <div class="slds-media__body">
+                    <h2 class="slds-page-header__title">
+                        Payment Report
+                    </h2>
+                    <p class="slds-text-title--caps">
+                        This report show all paymets
+                    </p>
+                </div>
+            </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="slds-m-vertical_large slds-align_absolute-center">
+                <lightning:input
+                    label="Search Payment"
+                    type="text"
+                    placeholder="Start typing..."
+                    class="search-data__input"
+                    onchange="{!c.searchData}" value="{!v.searchTerm}" />
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12" class="slds-is-relative">
+            <aura:if isTrue="{! v.isLoading}">
+                <lightning:spinner alternativeText="Loading..." size="medium"/>
+            </aura:if>
+
+            <lightning:datatable
+                keyField="id"
+                data="{!v.reportData}"
+                columns="{!v.columns}"
+                hideCheckboxColumn="true" />
+
+            <aura:if isTrue="{! or(!empty(v.searchTerm), empty(v.reportData)) }">
+                <ui:message title="Error" severity="error">
+                    No data was found!
+                </ui:message>
+            </aura:if>
+        </lightning:layoutItem>
+    </lightning:layout>
+
+</aura:component>

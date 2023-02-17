@@ -1,0 +1,52 @@
+/**
+ * Created by dudunato on 16/02/23.
+ */
+
+:host {
+    --slds-c-input-color-border: #8a8a8a;
+    --slds-c-input-radius-border: 0;
+    --slds-c-button-brand-color-background: #8a8a8a;
+    --slds-c-button-brand-color-background-hover: black;
+    --slds-c-button-brand-color-border-hover: black;
+    --slds-c-button-brand-color-border: black;
+    --slds-c-button-neutral-color-background: whitesmoke;
+    --slds-c-button-neutral-color-border: black;
+    --slds-c-button-text-color: black;
+}
+
+.container {
+    width: 100%;
+    padding: 20px;
+    min-height: 400px;
+    background: whitesmoke;
+    position: relative;
+}
+
+.button-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.button-actions lightning-button {
+    padding: 10px;
+}
+
+.payment-grid {
+    margin-top: 20px;
+}
+
+table thead {
+    border: 1px solid #8a8a8a;
+}
+
+th, td {
+    padding: 5px;
+}
+
+tr {
+    border: 1px solid #8a8a8a;
+}
+
+td > lightning-button-icon {
+    margin: 0 5px;
+}

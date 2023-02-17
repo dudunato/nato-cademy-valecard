@@ -1,0 +1,46 @@
+<!--
+ - Created by dudunato on 14/02/23.
+ -->
+
+<aura:component
+        description="testServer"
+        implements="force:appHostable,flexipage:availableForAllPageTypes"
+        controller="TestServerController"
+>
+
+    <aura:handler name="init" value="{!this}" action="{!c.callGetContacts}"/>
+    <aura:attribute type="List" name="contacts" default="[]"/>
+
+    <div>
+<!--        <lightning:button-->
+<!--                label="Get Contacts"-->
+<!--                onclick="{!c.callGetContacts}"-->
+<!--        />-->
+
+        <div class="contact-list">
+            <aura:iteration items="{!v.contacts}" var="contact">
+                <div class="contact">
+                    <div>
+                        <lightning:button
+                                iconName="action:edit"
+                                onclick="{!c.callEditContact}"
+                                value="{!contact}"
+                        />
+                    </div>
+
+                    <div>
+                        {!contact.Name} - {!contact.Email} - {!contact.Increment__c}
+                    </div>
+
+                    <div>
+                        <lightning:input
+                                label="Last Name"
+                                value="{!contact.LastName}"
+                        />
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+
+    </div>
+</aura:component>

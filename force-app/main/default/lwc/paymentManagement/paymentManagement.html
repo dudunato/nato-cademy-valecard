@@ -1,0 +1,113 @@
+<!--
+ - Created by dudunato on 16/02/23.
+ -->
+
+<!-- Payment Management -->
+<template>
+
+    <div class="container">
+        <lightning-spinner
+                if:true={loading}
+                alternative-text="Loading"
+                size="small"
+                variant="brand"
+        ></lightning-spinner>
+
+        <div class="payment-form" if:true={showForm}>
+
+            <lightning-combobox
+                    name="Contact__c"
+                    label="Contact"
+                    options={contactOptions}
+                    value={payment.Contact__c}
+                    onchange={handlePaymentFormChange}
+            ></lightning-combobox>
+
+            <lightning-input
+                    name="PaymentAmount__c"
+                    label="Payment Amount"
+                    value={payment.PaymentAmount__c}
+                    type="number"
+                    onchange={handlePaymentFormChange}
+            ></lightning-input>
+
+            <lightning-input
+                    name="PaymentType__c"
+                    label="Type"
+                    value={payment.PaymentType__c}
+                    type="text"
+                    onchange={handlePaymentFormChange}
+            ></lightning-input>
+
+            <div class="button-actions">
+
+                <lightning-button
+                        label="Cancel"
+                        onclick={togglePaymentForm}
+                ></lightning-button>
+
+                <lightning-button
+                        label="Save"
+                        variant="brand"
+                        onclick={handleSave}
+                ></lightning-button>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-grid">
+
+            <div
+                    if:false={showForm}
+                    class="slds-text-align_right slds-p-around_x-small slds-p-right_none"
+            >
+                <lightning-button
+                        label="New Payment"
+                        onclick={togglePaymentForm}
+                ></lightning-button>
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Contact</th>
+                    <th>Payment Amount</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr for:each={payments} for:item="payment" key={payment.Id}>
+                    <td>{payment.Contact__r.Name}</td>
+                    <td>{payment.PaymentAmount__c}</td>
+                    <td>{payment.PaymentType__c}</td>
+                    <td>
+                        <lightning-button-icon
+                                icon-name="utility:edit"
+                                variant="border-filled"
+                                size="x-small"
+                                value={payment}
+                                onclick={sendToEdit}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                                icon-name="utility:delete"
+                                variant="border-filled"
+                                size="x-small"
+                                value={payment.Id}
+                                onclick={handleDelete}
+                        ></lightning-button-icon>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</template>
