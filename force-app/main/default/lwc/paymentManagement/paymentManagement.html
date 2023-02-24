@@ -57,6 +57,60 @@
 
         </div>
 
+        <div class="opportunity-form" if:true={showOpportunityForm}>
+
+            <div>
+                Current Payment: {payment.Name}
+            </div>
+
+            <lightning-layout>
+                <lightning-layout-item flexibility="grow">
+                    <lightning-input
+                            name="searchTerm"
+                            label="Search opportunity"
+                            type="text"
+                    ></lightning-input>
+                </lightning-layout-item>
+
+                <lightning-layout-item alignment-bump="right" class="slds-p-left_xx-small">
+                    <lightning-button-icon
+                            icon-name="utility:search"
+                            variant="border-filled"
+                            onclick={handleSearchOpportunity}
+                    ></lightning-button-icon>
+                </lightning-layout-item>
+
+            </lightning-layout>
+
+            <div>
+
+                <lightning-combobox
+                        if:true={hasOpportunities}
+                        name="opportunities"
+                        label="Opportunity"
+                        options={opportunityOptions}
+                        onchange={handleOpportunitySelect}
+                ></lightning-combobox>
+
+            </div>
+
+            <div class="button-actions">
+
+                <lightning-button
+                        label="Cancel"
+                        onclick={toggleOpportunityForm}
+                ></lightning-button>
+
+                <lightning-button
+                        label="Save"
+                        variant="brand"
+                        onclick={handleOpportunitySet}
+                ></lightning-button>
+
+            </div>
+
+
+        </div>
 
         <div class="payment-grid">
 
@@ -76,6 +130,8 @@
                     <th>Contact</th>
                     <th>Payment Amount</th>
                     <th>Type</th>
+                    <th>Opportunity</th>
+                    <th>Bonus</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -85,6 +141,8 @@
                     <td>{payment.Contact__r.Name}</td>
                     <td>{payment.PaymentAmount__c}</td>
                     <td>{payment.PaymentType__c}</td>
+                    <td>{payment.Opportunity__r.Name}</td>
+                    <td>{payment.Opportunity__r.Bonus__c}</td>
                     <td>
                         <lightning-button-icon
                                 icon-name="utility:edit"
@@ -99,6 +157,13 @@
                                 size="x-small"
                                 value={payment.Id}
                                 onclick={handleDelete}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                                icon-name="utility:activity"
+                                variant="border-filled"
+                                size="x-small"
+                                value={payment}
+                                onclick={handleOpportunityForm}
                         ></lightning-button-icon>
                     </td>
                 </tr>

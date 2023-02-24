@@ -8,11 +8,16 @@ import getContacts from '@salesforce/apex/TestServerController.getContacts'
 import savePayment from '@salesforce/apex/PaymentController.savePayment'
 import getPayments from '@salesforce/apex/PaymentController.getPayments'
 import deletePayment from '@salesforce/apex/PaymentController.deletePayment'
+import getOpportunities from '@salesforce/apex/PaymentController.getOpportunitiesBySearchTerm'
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 
 export default class PaymentManagement extends LightningElement {
 
     contactOptions;
+    currentOpportunityId;
+
+    @track
+    opportunityOptions;
 
     @track
     payments;
@@ -26,13 +31,22 @@ export default class PaymentManagement extends LightningElement {
     @track
     showForm;
 
+    @track
+    showOpportunityForm;
+
     constructor() {
         super();
         this.contactOptions = [];
+        this.opportunityOptions = [];
         this.payments = [];
         this.payment = {};
         this.loading = true;
         this.showForm = false;
+        this.showOpportunityForm = false;
+    }
+
+    get hasOpportunities() {
+        return this.opportunityOptions.length > 0;
     }
 
     async connectedCallback() {
@@ -49,7 +63,22 @@ export default class PaymentManagement extends LightningElement {
     }
 
     async loadPayments() {
-        this.payments = await getPayments();
+        const payments = await getPayments();
+
+        payments.forEach((p) => {
+            if (!p.Opportunity__r) p.Opportunity__r = {Name : '', Bonus__c: 0};
+        });
+
+        this.payments = payments;
+    }
+
+    async loadOpportunities(searchTerm) {
+        const opportunities = await getOpportunities({
+            searchTerm: searchTerm
+        });
+        this.opportunityOptions = opportunities.map((o) => {
+            return  {label: o.Name, value: o.Id};
+        });
     }
 
     handlePaymentFormChange(event) {
@@ -94,6 +123,43 @@ export default class PaymentManagement extends LightningElement {
         }));
 
         await this.loadPayments();
+        this.loading = false;
+    }
+
+    toggleOpportunityForm() {
+        this.showOpportunityForm = !this.showOpportunityForm;
+    }
+
+    handleOpportunityForm(event) {
+        this.payment = {...event.target.value};
+        this.toggleOpportunityForm();
+    }
+
+    async handleSearchOpportunity(event) {
+        this.loading = true;
+        const value = [...this.template.querySelectorAll('lightning-input')].filter((el) => el.name === 'searchTerm')[0].value;
+        await this.loadOpportunities(value);
+        this.loading = false;
+    }
+
+    handleOpportunitySelect(event) {
+        this.currentOpportunityId = event.target.value;
+    }
+
+    async handleOpportunitySet(event) {
+        this.loading = true;
+
+        await savePayment({payment: {Id: this.payment.Id, Opportunity__c: this.currentOpportunityId}});
+
+        this.dispatchEvent(new ShowToastEvent({
+            title: '',
+            message: 'Opportunity set successfully!',
+            variant: 'success'
+        }));
+
+        await this.loadPayments();
+        this.payment = {};
+        this.toggleOpportunityForm();
         this.loading = false;
     }
 
