@@ -93,7 +93,11 @@ export default class PaymentManagement extends LightningElement {
     async handleSave() {
         this.loading = true;
 
-        await savePayment({payment: this.payment});
+        const payment = {...this.payment};
+        delete payment.Contact__r;
+        delete payment.Opportunity__r;
+
+        await savePayment({payment: payment});
 
         this.dispatchEvent(new ShowToastEvent({
             title: '',
