@@ -66,6 +66,7 @@ export default class PaymentManagement extends LightningElement {
         const payments = await getPayments();
 
         payments.forEach((p) => {
+            if (!p.Contact__r) p.Contact__r = {Name : ''};
             if (!p.Opportunity__r) p.Opportunity__r = {Name : '', Bonus__c: 0};
         });
 
