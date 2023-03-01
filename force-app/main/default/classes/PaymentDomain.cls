@@ -46,7 +46,10 @@ public with sharing class PaymentDomain implements TriggerHandler {
         for (Payment__c currentPayment : this.payments) {
             Payment__c oldPayment = (Payment__c) paymentMap.get(currentPayment.Id);
 
-            if (oldPayment.Opportunity__c == currentPayment.Opportunity__c) continue;
+            Boolean paymentAmountNotChanged = oldPayment.PaymentAmount__c == currentPayment.PaymentAmount__c;
+            Boolean opportunityNotChanged = oldPayment.Opportunity__c == currentPayment.Opportunity__c;
+            if (paymentAmountNotChanged && opportunityNotChanged) continue;
+
             oppIds.add(currentPayment.Opportunity__c);
 
             if (paymentsByOppId.containsKey(currentPayment.Opportunity__c)) {

@@ -1,0 +1,10 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body class="vsc-initialized" style="height: auto; min-height: auto;">Olá&nbsp;{{{Opportunity.Contact__c}}},<br />
+<br />
+Você recebeu um bonus:&nbsp;<strong>{{{Opportunity.Bonus__c}}}</strong>!<br />
+<br />
+Valeu!</body>
+</html>

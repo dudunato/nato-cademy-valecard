@@ -205,5 +205,17 @@
         <members>WorkThanks</members>
         <name>CustomObject</name>
     </types>
+    <types>
+        <members>unfiled$public/Bonus_Notification_1677627975035</members>
+        <name>EmailTemplate</name>
+    </types>
+    <types>
+        <members>Send_Bonus_Notification_Flow</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>Opportunity.BonusNotificationAlert</members>
+        <name>WorkflowAlert</name>
+    </types>
     <version>55.0</version>
 </Package>
