@@ -1,0 +1,31 @@
+<!--
+ - Created by dudunato on 02/03/23.
+ -->
+
+<!-- Search Zip QA -->
+<template>
+    <lightning-quick-action-panel header="Busca CEP">
+
+        <div>
+            <lightning-input
+                    label="CEP:"
+                    type="text"
+             ></lightning-input>
+        </div>
+
+
+        <div slot="footer">
+            <lightning-button
+                    variant="neutral"
+                    label="Cancelar"
+                    onclick={handleCancel}
+            ></lightning-button>
+            <lightning-button
+                    variant="brand"
+                    class="slds-m-left_x-small"
+                    label="Busca"
+                    type="submit"
+            ></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>
