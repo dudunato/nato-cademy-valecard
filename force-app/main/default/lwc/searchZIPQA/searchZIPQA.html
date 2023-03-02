@@ -4,15 +4,18 @@
 
 <!-- Search Zip QA -->
 <template>
-    <lightning-quick-action-panel header="Busca CEP">
+    <lightning-quick-action-panel header="Busca CEP" class="slds-is-relative">
+        <lightning-spinner if:true={loading} size="small" ></lightning-spinner>
 
         <div>
             <lightning-input
                     label="CEP:"
                     type="text"
+                    required="true"
+                    pattern="^\d{2}\d{3}[-]\d{3}$"
+                    message-when-pattern-mismatch="CEP Inválido. Formato padrão: 00000-000"
              ></lightning-input>
         </div>
-
 
         <div slot="footer">
             <lightning-button
@@ -25,6 +28,8 @@
                     class="slds-m-left_x-small"
                     label="Busca"
                     type="submit"
+                    onclick={handleSearch}
+                    disabled={loading}
             ></lightning-button>
         </div>
     </lightning-quick-action-panel>

@@ -28,4 +28,14 @@ public with sharing class TestServerController {
         update contact;
     }
 
+    @AuraEnabled
+    public static Map<String, Object> getCEP(String cepNumber) {
+       return new CepAPI().fetch(cepNumber);
+    }
+
+    @AuraEnabled
+    public static void saveContact(Contact contact) {
+        upsert contact;
+    }
+
 }
