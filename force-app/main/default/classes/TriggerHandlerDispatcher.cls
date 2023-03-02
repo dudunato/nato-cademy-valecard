@@ -22,23 +22,23 @@ public with sharing class TriggerHandlerDispatcher {
                     handler.beforeInsert();
                 }
 
-                WHEN BEFORE_UPDATE {
+                when BEFORE_UPDATE {
                     handler.beforeUpdate(Trigger.oldMap);
                 }
 
-                WHEN BEFORE_DELETE {
+                when BEFORE_DELETE {
                     handler.beforeDelete();
                 }
 
-                WHEN AFTER_INSERT {
+                when AFTER_INSERT {
                     handler.afterInsert();
                 }
 
-                WHEN AFTER_UPDATE {
+                when AFTER_UPDATE {
                     handler.afterUpdate(Trigger.oldMap);
                 }
 
-                WHEN AFTER_DELETE {
+                when AFTER_DELETE {
                     handler.afterDelete();
                 }
 
