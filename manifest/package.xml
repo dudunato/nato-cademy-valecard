@@ -217,5 +217,13 @@
         <members>Opportunity.BonusNotificationAlert</members>
         <name>WorkflowAlert</name>
     </types>
+    <types>
+        <members>CEPApi</members>
+        <name>NamedCredential</name>
+    </types>
+    <types>
+        <members>CEPPS</members>
+        <name>PermissionSet</name>
+    </types>
     <version>55.0</version>
 </Package>

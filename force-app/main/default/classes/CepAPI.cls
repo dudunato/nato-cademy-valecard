@@ -7,7 +7,7 @@ public with sharing class CepAPI {
     private final BasicHttp http;
 
     public CepAPI() {
-        this.http = new BasicHttp('https://cdn.apicep.com');
+        this.http = new BasicHttp('callout:CEPApi');
     }
 
     // new CepAPI().fetch('01001000')
