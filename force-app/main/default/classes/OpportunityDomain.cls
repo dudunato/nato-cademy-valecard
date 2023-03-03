@@ -3,6 +3,7 @@
  */
 
 public with sharing class OpportunityDomain implements TriggerHandler {
+
     private final List<Opportunity> opportunities;
 
     public OpportunityDomain() {
