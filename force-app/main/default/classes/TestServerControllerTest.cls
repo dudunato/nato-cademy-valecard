@@ -48,4 +48,17 @@ private class TestServerControllerTest {
         Assert.areEqual('DUDU', contactUpdated.LastName);
     }
 
+
+    @IsTest
+    static void testGetCEP() {
+
+        Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator());
+
+        Map<String, Object> cepData = TestServerController.getCEP('38412-180');
+
+        Assert.areEqual('38412-180', cepData.get('code'));
+        Assert.areEqual('MG', cepData.get('state'));
+        Assert.areEqual('Rua das Ipoméias', cepData.get('address'));
+    }
+
 }
