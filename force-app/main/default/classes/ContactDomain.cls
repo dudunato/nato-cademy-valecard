@@ -50,4 +50,11 @@ public with sharing class ContactDomain implements TriggerHandler {
 
         System.enqueueJob(new FetchCEPQueueable(changedContacts.deepClone(true)));
     }
+
+    @Future(Callout=true)
+    public static void testFuture(Id contactId) {
+
+//        new FetchCEPQueueable(new List<Contact>{[SELECT Id, MailingPostalCode FROM Contact WHERE Id = :contactId]}).callFetchCEP();
+
+    }
 }

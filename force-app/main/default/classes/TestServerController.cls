@@ -38,4 +38,43 @@ public with sharing class TestServerController {
         upsert contact;
     }
 
+    @AuraEnabled
+    public static List<Map<String, String>> getObjects() {
+        List<SObjectType> sObjectTypes = Schema.getGlobalDescribe().values();
+
+        List<Map<String, String>> objectNames = new List<Map<String, String>>();
+        for (SObjectType sObjectType : sObjectTypes) {
+            DescribeSObjectResult sObjectResult = sObjectType.getDescribe();
+            objectNames.add(
+                    new Map<String, String> {
+                            'label' => sObjectResult.getLabel() + ' (' + sObjectResult.getName() + ')',
+                            'value' => sObjectResult.getName()
+                    }
+            );
+        }
+
+        return objectNames;
+    }
+
+    @AuraEnabled
+    public static List<Map<String, String>> getFields(String objectName) {
+        Map<String, SObjectField> sObjectFields = Schema.getGlobalDescribe().get(objectName).getDescribe().fields.getMap();
+
+        List<Map<String, String>> fieldsData = new List<Map<String, String>>();
+
+        for (SObjectField sObjectField : sObjectFields.values()) {
+            DescribeFieldResult fieldResult = sObjectField.getDescribe();
+            fieldsData.add(
+                    new Map<String, String> {
+                            'label' => fieldResult.getLabel(),
+                            'apiName' => fieldResult.getName(),
+                            'type' => fieldResult.getType().name()
+                    }
+            );
+        }
+
+        return fieldsData;
+    }
+
+
 }

@@ -14,7 +14,7 @@ public with sharing class FetchCEPQueueable implements Queueable, Database.Allow
         callFetchCEP();
     }
 
-    private void callFetchCEP(){
+    public void callFetchCEP(){
         CepAPI cepAPI = new CepAPI();
 
         for (Contact contact : currentContacts) {

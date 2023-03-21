@@ -1,0 +1,25 @@
+/**
+ * Created by dudunato on 21/03/23.
+ */
+
+.object-screener {
+    margin-top: 20px;
+    padding: 20px;
+    background: whitesmoke;
+}
+
+.fields-detail {
+    margin-top: 20px;
+}
+
+table thead {
+    border: 1px solid #8a8a8a;
+}
+
+th, td {
+    padding: 5px;
+}
+
+tr {
+    border: 1px solid #8a8a8a;
+}

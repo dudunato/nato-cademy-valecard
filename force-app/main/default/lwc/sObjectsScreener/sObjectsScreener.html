@@ -1,0 +1,58 @@
+<!--
+ - Created by dudunato on 21/03/23.
+ -->
+
+<!-- SObjects Screener -->
+<template>
+
+    <div class="object-screener slds-is-relative">
+        <lightning-spinner
+                if:true={loading}
+                alternative-text="Loading"
+                size="small"
+                variant="brand"
+        ></lightning-spinner>
+
+        <div>
+            <lightning-combobox
+                    name="sObjects"
+                    label="SObjects List"
+                    options={sObjectOptions}
+                    onchange={handleSObjectChange}
+            ></lightning-combobox>
+        </div>
+
+        <div class="fields-detail">
+            <lightning-input
+                    name="search"
+                    label="Search"
+                    variant="label-hidden"
+                    placeholder="Search field..."
+                    type="text"
+                    onchange={filterFields}
+            ></lightning-input>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Field Name</th>
+                    <th>Field API</th>
+                    <th>Field Type</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr for:each={currentFields} for:item="field" key={field.apiName}>
+                        <th>{field.label}</th>
+                        <th>{field.apiName}</th>
+                        <th>{field.type}</th>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+
+
+    </div>
+</template>
