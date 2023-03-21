@@ -32,9 +32,14 @@ export default class SObjectsScreener extends LightningElement {
         await this.loadSObjectNames();
     }
 
+    get sObjectListLabel() {
+        return `SObject List (${this.sObjectOptions.length})`;
+    }
+
     async loadSObjectNames() {
 
         const sObjects = await getObjects();
+        sObjects.sort((a, b) => a.label.localeCompare(b.label));
 
         this.sObjectOptions = sObjects.map(sObject => {
             return {
